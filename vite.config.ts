@@ -7,10 +7,10 @@ export default defineConfig({
   plugins: [
     solid(),
     Unimport.vite({
-      include: [
-        /\.[tj]sx?$/, // .ts, .tsx, .js, .jsx
-      ],
-      dirs: ['src/**/*'],
+      // include: [
+      //   /\.[tj]sx?$/, // .ts, .tsx, .js, .jsx
+      // ],
+      dirs: ['./src/*', './src/pixi/*'],
 
       imports: [{ name: 'ParentComponent', from: 'solid-js', type: true }],
       presets: [

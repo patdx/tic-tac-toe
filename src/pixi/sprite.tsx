@@ -1,5 +1,7 @@
 import * as PIXI from 'pixi.js';
 import spriteImg from '../assets/sprite.png';
+import type { Component, ParentComponent } from 'solid-js';
+import { useMountChild } from './hooks';
 
 export const Sprite: ParentComponent<{ delay?: number }> = (props) => {
   console.log(spriteImg);
@@ -28,7 +30,7 @@ export const Sprite: ParentComponent<{ delay?: number }> = (props) => {
   // Tell our application's ticker to run a new callback every frame, passing
   // in the amount of time that has passed since the last tick
 
-  const ticker: PIXI.TickerCallback<any> = (delta) => {
+  useTick((delta) => {
     elapsed += delta / 60;
     const amount = Math.sin(elapsed);
     const scale = 1.0 + 0.25 * amount;
@@ -40,16 +42,79 @@ export const Sprite: ParentComponent<{ delay?: number }> = (props) => {
     sprite.alpha = alpha;
     sprite.angle = angle;
     sprite.x = x;
-  };
+  });
+  // test
 
-  app?.ticker.add(ticker);
+  return (
+    <PixiContext.Provider value={context}>
+      {props.children}
+    </PixiContext.Provider>
+  );
+};
 
-  onCleanup(() => {
-    console.log('destroy ticker');
-    app?.ticker?.remove(ticker);
+export const Square: Component<{
+  x: number;
+  y: number;
+  onClick?: () => any;
+}> = (props) => {
+  var square = new PIXI.Graphics();
+  square.beginFill('gray');
+  square.drawRect(-45, -45, 90, 90);
+  square.endFill();
+  // square.anchor.set(0.5, 0.5);
+  square.position.set(props.x, props.y);
+  square.interactive = true;
+
+  square.on('pointerover', () => {
+    square.scale.set(1.1);
   });
 
-  // test
+  square.on('pointerleave', () => {
+    square.scale.set(1);
+  });
+
+  square.on('click', () => {
+    props.onClick?.();
+  });
+
+  useMountChild(square);
+
+  onCleanup(() => {
+    console.log('destroy square');
+    square.destroy();
+  });
+
+  return null;
+};
+
+export const Piece: ParentComponent<{ text: string; x: number; y: number }> = (
+  props
+) => {
+  const sprite = new PIXI.Text(props.text, {
+    fontSize: '52px',
+    fill: 'white',
+    align: 'center',
+  });
+
+  useMountChild(sprite);
+
+  sprite.anchor.set(0.5, 0.5);
+  sprite.position.set(props.x, props.y);
+
+  const parentContext = useContext(PixiContext);
+  const app = parentContext?.app;
+
+  const context: IPixiContext = {
+    app: app as any,
+    parent: sprite,
+  };
+
+  // test23
+
+  onCleanup(() => {
+    console.log('destroy sprite');
+    sprite.destroy();
+  });
 
   return (
     <PixiContext.Provider value={context}>
