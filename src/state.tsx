@@ -1,4 +1,4 @@
-type Cell = 'x' | 'o' | null;
+type Cell = 'X' | 'O' | null;
 
 type Row = Array<Cell>;
 
@@ -90,5 +90,5 @@ export const movesAvailable = createMemo(() => {
 });
 
 export const nextTurn = createMemo(() => {
-  return state.move % 2 === 0 ? 'x' : 'o';
+  return state.move % 2 === 0 ? 'X' : 'O';
 });

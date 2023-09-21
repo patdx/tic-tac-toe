@@ -35,40 +35,7 @@ export function App() {
         )}
       </p>
 
-      <table class='mx-auto'>
-        <tbody>
-          <For each={state.rows}>
-            {(row, y) => (
-              <tr>
-                <For each={row}>
-                  {(cell, x) => (
-                    <td
-                      onClick={() => {
-                        setState(
-                          produce((state) => {
-                            if (
-                              state.rows[y()][x()] === null &&
-                              movesAvailable() &&
-                              !winnerInfo().didWin
-                            ) {
-                              state.rows[y()][x()] =
-                                state.move % 2 === 0 ? 'x' : 'o';
-                              state.move += 1;
-                            }
-                          })
-                        );
-                      }}
-                      class='p-4 border text-5xl w-32 h-32 text-center align-middle'
-                    >
-                      {cell ?? ' '}
-                    </td>
-                  )}
-                </For>
-              </tr>
-            )}
-          </For>
-        </tbody>
-      </table>
+      <Game />
     </>
   );
 }

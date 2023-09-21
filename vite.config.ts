@@ -1,17 +1,31 @@
 import { defineConfig } from 'vite';
 import solid from 'vite-plugin-solid';
-import AutoImport from 'unplugin-auto-import/vite';
+// import AutoImport from 'unplugin-auto-import/vite';
+import Unimport from 'unimport/unplugin';
 
 export default defineConfig({
   plugins: [
     solid(),
-    AutoImport({
-      include: [
-        /\.[tj]sx?$/, // .ts, .tsx, .js, .jsx
+    Unimport.vite({
+      // include: [
+      //   /\.[tj]sx?$/, // .ts, .tsx, .js, .jsx
+      // ],
+      dirs: ['./src/*', './src/pixi/*'],
+
+      imports: [{ name: 'ParentComponent', from: 'solid-js', type: true }],
+      presets: [
+        'solid-js',
+        // {
+        //   package: 'pixi.js',
+        //   // type
+        //   // ignore: ['isStream', /^[A-Z]/, /^[a-z]*$/, (r) => r.length > 8],
+        // },
       ],
-      dirs: ['src/**/*'],
-      imports: ['solid-js'],
-      dts: './src/auto-imports.d.ts',
+      // dts: './src/auto-imports.d.ts',
+      dts: true,
     }),
   ],
+  build: {
+    minify: false,
+  },
 });
