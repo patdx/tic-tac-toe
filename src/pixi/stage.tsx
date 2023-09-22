@@ -1,12 +1,13 @@
 import * as PIXI from 'pixi.js';
 
 export const Stage: ParentComponent = (props) => {
-  let canvas = <canvas />;
+  // let canvas = <canvas />;
 
   const app = new PIXI.Application({
-    width: 640,
-    height: 360,
-    view: canvas as any,
+    // width: 640,
+    // height: 360,
+    resizeTo: window,
+    // view: canvas as any,
   });
 
   const context: IPixiContext = {
@@ -25,7 +26,7 @@ export const Stage: ParentComponent = (props) => {
 
   return (
     <PixiContext.Provider value={context}>
-      {canvas}
+      {app.view as any}
       {props.children}
     </PixiContext.Provider>
   );
