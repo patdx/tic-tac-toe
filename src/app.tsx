@@ -12,30 +12,31 @@ function PlayAgain() {
 export function App() {
   return (
     <>
-      <h1 class='text-3xl font-bold text-center'>Tic Tac Toe</h1>
-
-      <p class='mb-2 text-center'>
-        {winnerInfo().didWin ? (
-          <>
-            Game finished! Congratulations,{' '}
-            <span class='font-bold'>
-              Player {winnerInfo().player?.toUpperCase()}
-            </span>
-            . <PlayAgain />
-          </>
-        ) : !movesAvailable() ? (
-          <>
-            Tie! <PlayAgain />
-          </>
-        ) : (
-          <>
-            It's <span class='font-bold'>{nextTurn().toUpperCase()}</span>'s
-            turn.
-          </>
-        )}
-      </p>
-
       <Game />
+      <div class='absolute top-0 w-full z-10 text-white p-4'>
+        <h1 class='text-3xl font-bold text-center'>Tic Tac Toe</h1>
+
+        <p class='mb-2 text-center'>
+          {winnerInfo().didWin ? (
+            <>
+              Game finished! Congratulations,{' '}
+              <span class='font-bold'>
+                Player {winnerInfo().player?.toUpperCase()}
+              </span>
+              . <PlayAgain />
+            </>
+          ) : !movesAvailable() ? (
+            <>
+              Tie! <PlayAgain />
+            </>
+          ) : (
+            <>
+              It's <span class='font-bold'>{nextTurn().toUpperCase()}</span>'s
+              turn.
+            </>
+          )}
+        </p>
+      </div>
     </>
   );
 }

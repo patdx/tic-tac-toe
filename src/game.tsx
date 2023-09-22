@@ -10,7 +10,7 @@ export function Game() {
               <>
                 <Square
                   x={100 + x() * 100}
-                  y={100 + y() * 100}
+                  y={200 + y() * 100}
                   onClick={() => {
                     setState(
                       produce((state) => {
@@ -30,7 +30,7 @@ export function Game() {
                 <Piece
                   text={cell?.toUpperCase() ?? ''}
                   x={100 + x() * 100}
-                  y={100 + y() * 100}
+                  y={200 + y() * 100}
                 />
               </>
             )}

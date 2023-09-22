@@ -73,7 +73,7 @@ export const Square: Component<{
     square.scale.set(1);
   });
 
-  square.on('click', () => {
+  square.on('pointertap', () => {
     props.onClick?.();
   });
 
