@@ -12,7 +12,11 @@ export default defineConfig({
       // ],
       dirs: ['./src/*', './src/pixi/*'],
 
-      imports: [{ name: 'ParentComponent', from: 'solid-js', type: true }],
+      imports: [
+        { name: 'ParentComponent', from: 'solid-js', type: true },
+        { name: 'Component', from: 'solid-js', type: true },
+        { name: '*', as: 'PIXI', from: 'pixi.js' },
+      ],
       presets: [
         'solid-js',
         // {

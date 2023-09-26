@@ -9,15 +9,16 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@pixi/constants": "^7.3.0",
-    "@pixi/core": "^7.3.0",
-    "@pixi/math": "^7.3.0",
-    "@pixi/runner": "^7.3.0",
-    "@pixi/settings": "^7.3.0",
-    "@pixi/ticker": "^7.3.0",
-    "@pixi/utils": "^7.3.0",
+    "@pixi/constants": "^7.3.1",
+    "@pixi/core": "^7.3.1",
+    "@pixi/math": "^7.3.1",
+    "@pixi/runner": "^7.3.1",
+    "@pixi/settings": "^7.3.1",
+    "@pixi/ticker": "^7.3.1",
+    "@pixi/utils": "^7.3.1",
     "autoprefixer": "^10.4.16",
-    "pixi.js": "^7.3.0",
+    "gsap": "^3.12.2",
+    "pixi.js": "^7.3.1",
     "postcss": "^8.4.30",
     "purecss": "^3.0.0",
     "solid-js": "^1.7.8",
@@ -25,9 +26,9 @@
   },
   "devDependencies": {
     "typescript": "^5.0.2",
-    "unimport": "^3.3.0",
+    "unimport": "^3.4.0",
+    "unplugin-auto-import": "^0.16.6",
     "vite": "^4.4.5",
-    "vite-plugin-solid": "^2.7.0",
-    "unplugin-auto-import": "^0.16.6"
+    "vite-plugin-solid": "^2.7.0"
   }
 }

@@ -21,7 +21,7 @@ export function App() {
             <>
               Game finished! Congratulations,{' '}
               <span class='font-bold'>
-                Player {winnerInfo().player?.toUpperCase()}
+                Player {winnerInfo().player?.mark?.toUpperCase()}
               </span>
               . <PlayAgain />
             </>
