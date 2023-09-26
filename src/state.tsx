@@ -1,4 +1,4 @@
-type Cell = 'X' | 'O' | null;
+type Cell = { mark: 'X' | 'O' | null };
 
 type Row = Array<Cell>;
 
@@ -8,7 +8,7 @@ function createGrid() {
   let rows: Row[] = [];
 
   for (let index = 0; index < 3; index++) {
-    rows.push([null, null, null]);
+    rows.push([{ mark: null }, { mark: null }, { mark: null }]);
   }
 
   return rows;
@@ -27,7 +27,7 @@ export function resetState() {
 }
 
 function checkCells(a: Cell, b: Cell, c: Cell) {
-  return a === b && b === c && a !== null;
+  return a.mark === b.mark && b.mark === c.mark && a.mark != null;
 }
 
 const WINNING_COMBINATIONS = [
@@ -52,11 +52,13 @@ const WINNING_COMBINATIONS = [
     ] satisfies Coord[]
 );
 
-export const winnerInfo = createMemo<{
+type WinnerInfo = {
   didWin: boolean;
-  player: Cell;
+  player: Cell | null;
   combination: Coord[] | null;
-}>(() => {
+};
+
+export const winnerInfo = createMemo<WinnerInfo>(() => {
   for (const combination of WINNING_COMBINATIONS) {
     const isWinner = checkCells(
       state.rows[combination[0][0]][combination[0][1]],
@@ -66,7 +68,7 @@ export const winnerInfo = createMemo<{
     if (isWinner) {
       return {
         didWin: true,
-        player: state.rows[combination[0][0]][combination[0][1]],
+        player: state.rows[combination[0][0]][combination[0][1]] as any,
         combination: combination,
       };
     }
@@ -82,7 +84,7 @@ export const winnerInfo = createMemo<{
 export const movesAvailable = createMemo(() => {
   for (const row of state.rows) {
     for (const cell of row) {
-      if (cell === null) return true;
+      if (cell.mark == null) return true;
     }
   }
 
