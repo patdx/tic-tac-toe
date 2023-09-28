@@ -65,6 +65,7 @@ export const Square: Component<{
 
   onCleanup(() => {
     console.log('destroy square');
+    tween?.kill();
     square.destroy();
   });
 

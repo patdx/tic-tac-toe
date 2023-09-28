@@ -1,6 +1,8 @@
-import * as PIXI from 'pixi.js';
+import type { ParentComponent } from 'solid-js';
 
 export const Stage: ParentComponent = (props) => {
+  // NOTE: Retrieving the canvas initialized by Pixi seems to work better,
+  // notably on iPhone.
   // let canvas = <canvas />;
 
   const app = new PIXI.Application({
@@ -10,24 +12,24 @@ export const Stage: ParentComponent = (props) => {
     // view: canvas as any,
   });
 
-  const context: IPixiContext = {
-    app,
-    parent: app.stage,
-  };
+  // Support Pixi Dev Tools
+  (globalThis as any).__PIXI_APP__ = app;
 
-  // test
-
-  console.log('create stage');
+  console.log('Create stage');
 
   onCleanup(() => {
-    console.log('destroy stage');
+    console.log('Destroy stage');
     app.destroy(false);
   });
 
   return (
-    <PixiContext.Provider value={context}>
+    <>
       {app.view as any}
-      {props.children}
-    </PixiContext.Provider>
+      <PixiAppProvider value={app}>
+        <PixiParentProvider value={app.stage}>
+          {props.children}
+        </PixiParentProvider>
+      </PixiAppProvider>
+    </>
   );
 };

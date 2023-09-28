@@ -20,10 +20,12 @@ export const [state, setState] = createStore({
 });
 
 export function resetState() {
-  setState({
-    move: 0,
-    rows: createGrid(),
-  });
+  setState(
+    reconcile({
+      move: 0,
+      rows: createGrid(),
+    })
+  );
 }
 
 function checkCells(a: Cell, b: Cell, c: Cell) {
@@ -68,7 +70,7 @@ export const winnerInfo = createMemo<WinnerInfo>(() => {
     if (isWinner) {
       return {
         didWin: true,
-        player: state.rows[combination[0][0]][combination[0][1]] as any,
+        player: state.rows[combination[0][0]][combination[0][1]],
         combination: combination,
       };
     }
