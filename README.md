@@ -26,3 +26,9 @@ Your app is ready to be deployed!
 ## Deployment
 
 Learn more about deploying your application with the [documentations](https://vitejs.dev/guide/static-deploy.html)
+
+## Related projects
+
+- https://github.com/sammccord/solid-pixi
+- https://github.com/diegomura/react-pdf
+- https://github.com/pixijs/pixi-react

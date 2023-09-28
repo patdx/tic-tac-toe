@@ -6,17 +6,8 @@ export const Sprite: ParentComponent<{ delay?: number }> = (props) => {
   console.log(spriteImg);
   let sprite = PIXI.Sprite.from(spriteImg);
 
-  const parentContext = useContext(PixiContext);
-  const app = parentContext?.app;
+  useMountChild(sprite);
 
-  const context: IPixiContext = {
-    app: app as any,
-    parent: sprite,
-  };
-
-  // test23
-
-  parentContext?.parent.addChild(sprite);
   sprite.anchor.set(0.1);
 
   onCleanup(() => {
@@ -45,8 +36,6 @@ export const Sprite: ParentComponent<{ delay?: number }> = (props) => {
   // test
 
   return (
-    <PixiContext.Provider value={context}>
-      {props.children}
-    </PixiContext.Provider>
+    <PixiParentProvider value={sprite}>{props.children}</PixiParentProvider>
   );
 };

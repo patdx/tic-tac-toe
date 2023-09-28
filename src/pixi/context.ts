@@ -1,8 +1,9 @@
 import * as PIXI from 'pixi.js';
 
-export type IPixiContext = {
-  app: PIXI.Application;
-  parent: PIXI.Container;
-};
+export const PixiAppContext = createContext<PIXI.Application>();
+export const PixiAppProvider = PixiAppContext.Provider;
+export const useApp = () => useContext(PixiAppContext);
 
-export const PixiContext = createContext<IPixiContext>();
+export const PixiParentContext = createContext<PIXI.Container>();
+export const PixiParentProvider = PixiParentContext.Provider;
+export const useParent = () => useContext(PixiParentContext);
