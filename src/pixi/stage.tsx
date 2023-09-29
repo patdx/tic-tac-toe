@@ -10,7 +10,12 @@ export const Stage: ParentComponent = (props) => {
     // height: 360,
     resizeTo: window,
     // view: canvas as any,
+    autoDensity: true,
+    resolution: devicePixelRatio,
   });
+
+  app.ticker.minFPS = 0.1;
+  app.ticker.maxFPS = 1;
 
   // Support Pixi Dev Tools
   (globalThis as any).__PIXI_APP__ = app;

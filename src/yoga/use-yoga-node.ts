@@ -37,11 +37,14 @@ export const useYogaNode = (id?: string) => {
     console.log(
       `${id} is yoga root, setting to ${pixiApp.view.width}x${pixiApp.view.height}`
     );
-    yogaNode.setWidth(pixiApp.view.width);
-    yogaNode.setHeight(pixiApp.view.height);
+    // TODO: since yoga works in integers, we should actually use
+    // a multiplier when working with yoga
+    yogaNode.setWidth(pixiApp.view.width / devicePixelRatio);
+    yogaNode.setHeight(pixiApp.view.height / devicePixelRatio);
     useTick(() => {
-      yogaNode.setWidth(pixiApp.view.width);
-      yogaNode.setHeight(pixiApp.view.height);
+      yogaNode.setWidth(pixiApp.view.width / devicePixelRatio);
+      yogaNode.setHeight(pixiApp.view.height / devicePixelRatio);
+      console.log('calculateLayout');
       yogaNode.calculateLayout(
         pixiApp.view.width,
         pixiApp.view.height,

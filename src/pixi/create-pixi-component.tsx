@@ -61,10 +61,22 @@ export function createPixiComponent<T extends DisplayObject>(
       setValue(pixiObj, 'position', props.position);
     });
 
-    createEffect(() => {
-      // console.log(`Updating text...`);
-      setValue(pixiObj, 'text', props.text);
+    console.log(1);
+
+    queueMicrotask(() => console.log(3));
+    setTimeout(() => console.log(4), 0);
+    onMount(() => {
+      console.log(5);
     });
+
+    if (pixiObj instanceof PIXI.Text)
+      createRenderEffect(() => {
+        console.log(`Updating text...`);
+        setValue(pixiObj, 'text', props.text);
+        console.log(`text width:`, pixiObj.width);
+      });
+
+    console.log(2);
 
     const [layout, setLayout] = createSignal<any>();
 
@@ -77,6 +89,15 @@ export function createPixiComponent<T extends DisplayObject>(
       if (typeof props.yoga === 'function') {
         props.yoga(node);
       }
+
+      if (props.yogaFitContent) {
+        const { width, height } = pixiObj as any as PixiContainer;
+        node.setWidth(width);
+        node.setHeight(height);
+      }
+
+      const layout = node.getComputedLayout();
+      console.log(`Initial Layout of ${id}: ${JSON.stringify(layout)}`);
 
       useTick(() => {
         const { width, height } = pixiObj as any as PixiContainer;

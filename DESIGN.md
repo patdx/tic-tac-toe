@@ -51,3 +51,13 @@ const Rectangle = createPixiComponent(PIXI.Rectangle);
   }}
 ></Rectangle>;
 ```
+
+## How to correctly render layout after mounting
+
+For example, after mounting some text:
+
+1. all components are mounted in solid js,
+   yoga nodes and so on are created in one sync step.
+2. Width of sized nodes (such as PIXI.Text) are measured and synced to Yoga tree.
+3. Yoga calculateLayout() is called on the yoga layout root node
+4. In each yoga pixi node, the newly calculated layout information is synced from yoga to pixi.
